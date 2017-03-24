@@ -21,7 +21,7 @@ public class UserServlet extends HttpServlet {
         UserDao userDao = new UserDaoImpl();
         userService.setUserDao(userDao);
         request.setAttribute("users", userService.getAllUsers());
-        request.getRequestDispatcher("/WEB-INF/views/users.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
     }
 
 }
