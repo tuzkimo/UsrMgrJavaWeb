@@ -1,5 +1,7 @@
 package net.tuzkimo.javaweb.dao;
 
+import net.tuzkimo.javaweb.util.ConfigManager;
+
 import java.sql.*;
 
 /**
@@ -12,10 +14,10 @@ class BaseDao {
     private static ResultSet resultSet;
 
     // 数据源参数
-    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/javaweb";
-    private static final String JDBC_USERNAME = "root";
-    private static final String JDBC_PASSWORD = "p123456";
+    private static final String JDBC_DRIVER = ConfigManager.getInstance().getString("jdbc.driver");
+    private static final String JDBC_URL = ConfigManager.getInstance().getString("jdbc.url");
+    private static final String JDBC_USERNAME = ConfigManager.getInstance().getString("jdbc.username");
+    private static final String JDBC_PASSWORD = ConfigManager.getInstance().getString("jdbc.password");
 
     private boolean getConnection() {
         try {
