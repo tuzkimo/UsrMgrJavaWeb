@@ -5,6 +5,7 @@ import net.tuzkimo.javaweb.util.ConfigManager;
 import java.sql.*;
 
 /**
+ * 基础 DAO
  * Created by tuzkimo on 2017-03-23.
  */
 class BaseDao {
@@ -46,6 +47,22 @@ class BaseDao {
             }
         }
         return resultSet;
+    }
+
+    int executeUpdate(String sql, Object[] params) {
+        int effectRows = 0;
+        if (getConnection()) {
+            try {
+                statement = connection.prepareStatement(sql);
+                for (int i = 0; i < params.length; i++) {
+                    statement.setObject(i + 1, params[i]);
+                }
+                effectRows = statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return effectRows;
     }
 
     @SuppressWarnings("Duplicates")

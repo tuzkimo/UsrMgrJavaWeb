@@ -6,17 +6,14 @@ import net.tuzkimo.javaweb.entity.User;
 import java.util.List;
 
 /**
+ * 用户服务实现类
  * Created by tuzkimo on 2017-03-23.
  */
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao;
+    private final UserDao userDao;
 
-    public UserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
@@ -28,4 +25,15 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserById(id);
     }
 
+    public boolean addUser(User user) {
+        return userDao.addUser(user);
+    }
+
+    public boolean editUser(User user) {
+        return userDao.updateUser(user);
+    }
+
+    public boolean deleteUser(int id) {
+        return userDao.deleteUser(id);
+    }
 }

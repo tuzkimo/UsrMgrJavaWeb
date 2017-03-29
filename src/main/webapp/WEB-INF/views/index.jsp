@@ -22,6 +22,7 @@
                 <th>id</th>
                 <th>name</th>
                 <th>description</th>
+                <th>operation</th>
             </tr>
             </thead>
             <tbody>
@@ -30,10 +31,17 @@
                     <td>${user.id}</td>
                     <td>${user.name}</td>
                     <td>${user.description}</td>
+                    <td>
+                        <a class="abtn" href="<c:url value="/edit"><c:param name="id" value="${user.id}"/></c:url>">Edit</a>
+                        <a class="abtn" href="<c:url value="/delete"><c:param name="id" value="${user.id}"/></c:url>">Delete</a>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
+        <p>
+            <a class="abtn" href="<c:url value="/add"/>">add</a>
+        </p>
     </div>
 </body>
 </html>
