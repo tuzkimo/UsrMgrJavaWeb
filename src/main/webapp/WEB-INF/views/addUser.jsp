@@ -16,7 +16,7 @@
 <body>
 <div class="main">
     <h2 class="title"><span>Add User</span></h2>
-    <form action="<c:url value="/add"/>" method="post">
+    <form action="<c:url value="/add"/>" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>user</legend>
             <p>
@@ -30,6 +30,10 @@
             <p>
                 <label for="description">Description: </label>
                 <textarea name="description" id="description">${user.description}</textarea>
+            </p>
+            <p>
+                <label for="description">Photo: </label>
+                <input type="file" name="photo"/>
             </p>
             <p>
                 <input type="submit" value="save">
