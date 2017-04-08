@@ -42,14 +42,14 @@ public class UserTest {
     @Test
     public void editUserTest() throws Exception {
         User user = new User("Steve Curry", "sc123456", "PF");
-        user.setId(6);
+        user.setId(17);
         boolean result = userService.editUser(user);
         System.out.println("Updated user? " + result);
     }
 
     @Test
     public void deleteUserTest() throws Exception {
-        boolean result = userService.deleteUser(6);
+        boolean result = userService.deleteUser(16);
         System.out.println("Deleted user? " +result);
     }
     

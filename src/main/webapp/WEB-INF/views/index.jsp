@@ -22,6 +22,7 @@
                 <th>id</th>
                 <th>name</th>
                 <th>description</th>
+                <th>photo</th>
                 <th>operation</th>
             </tr>
             </thead>
@@ -31,8 +32,10 @@
                     <td>${user.id}</td>
                     <td>${user.name}</td>
                     <td>${user.description}</td>
+                    <td><img src="<c:url value="/photos/${user.photo}"/>" title="${user.name}" alt="${user.name}"></td>
                     <td>
                         <a class="abtn" href="<c:url value="/edit"><c:param name="id" value="${user.id}"/></c:url>">Edit</a>
+                        <a class="abtn" href="<c:url value="/upPhoto"><c:param name="id" value="${user.id}"/></c:url>">UpPhoto</a>
                         <a class="abtn" href="<c:url value="/delete"><c:param name="id" value="${user.id}"/></c:url>">Delete</a>
                     </td>
                 </tr>

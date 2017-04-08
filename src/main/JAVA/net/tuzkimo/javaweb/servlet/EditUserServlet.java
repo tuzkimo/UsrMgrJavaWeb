@@ -33,12 +33,12 @@ public class EditUserServlet extends HttpServlet {
         UserService userService = new UserServiceImpl(new UserDaoImpl());
 
         int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String description = request.getParameter("description");
 
-        User user = new User(name, password, description);
-        user.setId(id);
+        User user = userService.getUserById(id);
+
+        user.setName(request.getParameter("name"));
+        user.setPassword(request.getParameter("password"));
+        user.setDescription(request.getParameter("description"));
 
         if (userService.editUser(user)) {
             System.out.println("Edited user: " + user);

@@ -25,6 +25,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user.setName(resultSet.getString("name"));
                 user.setPassword(resultSet.getString("password"));
                 user.setDescription(resultSet.getString("description"));
+                user.setPhoto(resultSet.getString("photo"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -46,6 +47,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user.setName(resultSet.getString("name"));
                 user.setPassword(resultSet.getString("password"));
                 user.setDescription(resultSet.getString("description"));
+                user.setPhoto(resultSet.getString("photo"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,8 +75,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     public boolean updateUser(User user) {
         boolean result = false;
         try {
-            String sql = "UPDATE user SET name = ?, password = ?, description = ? WHERE id = ?";
-            Object[] params = {user.getName(), user.getPassword(), user.getDescription(), user.getId()};
+            String sql = "UPDATE user SET name = ?, password = ?, description = ?, photo = ? WHERE id = ?";
+            Object[] params = {user.getName(), user.getPassword(), user.getDescription(), user.getPhoto(), user.getId()};
             int effectRows = executeUpdate(sql, params);
             if (effectRows > 0) {
                 result = true;

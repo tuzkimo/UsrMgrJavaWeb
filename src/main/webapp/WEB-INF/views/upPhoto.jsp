@@ -10,32 +10,32 @@
 <%@ page isELIgnored="false" %>
 <html>
 <head>
-    <title>Add User</title>
+    <title>Upload Photo</title>
     <link href="<c:url value="/style/main.css"/>" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="main">
-    <h2 class="title"><span>Add User</span></h2>
-    <form action="<c:url value="/add"/>" method="post">
+    <h2 class="title"><span>Upload Photo</span></h2>
+    <form action="<c:url value="/upPhoto"/>" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>user</legend>
+            <input type="hidden" name="id" value="${user.id}">
             <p>
-                <label for="name">Name: </label>
-                <input type="text" name="name" id="name" value="${user.name}"/>
+                <label for="name">Name: </label>${user.name}
             </p>
             <p>
-                <label for="password">Password: </label>
-                <input type="password" name="password" id="password"/>
+                <label for="description">Description: </label>${user.description}
             </p>
             <p>
-                <label for="description">Description: </label>
-                <textarea name="description" id="description">${user.description}</textarea>
+                <label for="photo">Photo: </label>
+                <input type="file" name="photo" id="photo"/>
             </p>
             <p>
-                <input type="submit" value="save">
+                <input type="submit" value="upload"/>
             </p>
         </fieldset>
     </form>
+    <p class="error">${message}</p>
     <p>
         <a class="abtn" href="<c:url value="/index"/>">Return</a>
     </p>
