@@ -21,7 +21,33 @@ public class ListUsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = new UserServiceImpl(new UserDaoImpl());
-        request.setAttribute("users", userService.getAllUsers());
+
+        int size = 5;
+
+        int usersCount = userService.getUsersCount();
+
+        int pages;
+        if (usersCount % size == 0) {
+            pages = usersCount / size;
+        } else {
+            pages = usersCount / size + 1;
+        }
+
+        Integer pageNo = 1;
+        if (request.getParameter("pageNo") != null) {
+            pageNo = Integer.parseInt(request.getParameter("pageNo"));
+        }
+        if (pageNo < 1) {
+            pageNo = 1;
+        }
+        if (pageNo > pages) {
+            pageNo = pages;
+        }
+
+        int skip = (pageNo - 1) * 5;
+        request.setAttribute("users", userService.getUsersPaper(skip, size));
+        request.setAttribute("pageNo", pageNo);
+        request.setAttribute("pages", pages);
         request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
     }
 

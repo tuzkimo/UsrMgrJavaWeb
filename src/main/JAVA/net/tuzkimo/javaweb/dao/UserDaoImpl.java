@@ -36,6 +36,46 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         return users;
     }
 
+    public List<User> getUsersPaper(int skip, int size) {
+        List<User> users = new ArrayList<User>();
+        try {
+            String sql = "SELECT * FROM user LIMIT ?, ?";
+            Object[] params = {skip, size};
+            ResultSet resultSet = executeQuery(sql, params);
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setPassword((resultSet.getString("password")));
+                user.setDescription(resultSet.getString("description"));
+                user.setPhoto(resultSet.getString("photo"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return users;
+    }
+
+    public Integer getUsersCount() {
+        Integer usersCount = 0;
+        try {
+            String sql = "SELECT COUNT(id) FROM user";
+            Object[] params = {};
+            ResultSet resultSet = executeQuery(sql, params);
+            if (resultSet.next()) {
+                usersCount = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return usersCount;
+    }
+
     public User getUserById(int id) {
         User user = new User();
         try {

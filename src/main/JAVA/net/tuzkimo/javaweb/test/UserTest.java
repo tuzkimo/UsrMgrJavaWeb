@@ -4,6 +4,7 @@ import net.tuzkimo.javaweb.dao.UserDaoImpl;
 import net.tuzkimo.javaweb.entity.User;
 import net.tuzkimo.javaweb.service.UserService;
 import net.tuzkimo.javaweb.service.UserServiceImpl;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
@@ -24,6 +25,17 @@ public class UserTest {
     public void getAllUsersTest() {
         List<User> users = userService.getAllUsers();
         System.out.println(users);
+    }
+
+    @Test
+    public void getUsersPaperTest() throws Exception {
+        List<User> users = userService.getUsersPaper(0, 5);
+        System.out.println(users);
+    }
+
+    @Test
+    public void getUsersCount() throws Exception {
+        Assert.assertTrue(userService.getUsersCount() == 6);
     }
 
     @Test

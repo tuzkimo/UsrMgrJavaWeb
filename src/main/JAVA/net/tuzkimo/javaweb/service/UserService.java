@@ -12,6 +12,10 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    List<User> getUsersPaper(int skip, int size);
+
+    Integer getUsersCount();
+
     User getUserById(int id);
 
     boolean addUser(User user);

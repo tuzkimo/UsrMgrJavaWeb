@@ -21,6 +21,14 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllUsers();
     }
 
+    public List<User> getUsersPaper(int skip, int size) {
+        return userDao.getUsersPaper(skip, size);
+    }
+
+    public Integer getUsersCount() {
+        return userDao.getUsersCount();
+    }
+
     public User getUserById(int id) {
         return userDao.getUserById(id);
     }

@@ -45,6 +45,36 @@
         <p>
             <a class="abtn" href="<c:url value="/add"/>">add</a>
         </p>
+        <div class="pagination"></div>
     </div>
+    <script src="<c:url value="/scripts/jquery-3.1.1.min.js"/>"></script>
+    <script>
+        var pageNo = ${pageNo};
+        var pages = ${pages};
+        var pagination = $(".pagination");
+
+        $(document).ready(function() {
+            pagination.append('<a href="#" class="prev">Prev</a>');
+            for (var i=1; i <= pages; i++ ) {
+                pagination.append('<a href="/?pageNo=' + i + '" class="numlink">' + i + '</a>');
+            }
+            pagination.append('<a href="#" class="next">Next</a>');
+            pagination.append('<div style="clear: both">');
+
+            if (pageNo == 1) {
+                $('.prev').hide();
+            } else {
+                $('.prev').attr("href","/?pageNo=" + (pageNo-1));
+            }
+
+            if (pageNo == pages) {
+                $('.next').hide();
+            } else {
+                $('.next').attr("href","/?pageNo=" + (pageNo+1));
+            }
+
+            $('.numlink:eq('+(pageNo-1)+')').addClass('current');
+        })
+    </script>
 </body>
 </html>
