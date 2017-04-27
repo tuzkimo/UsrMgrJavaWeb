@@ -11,26 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 删除用户 Servlet
- * Created by tuzkimo on 2017-03-29.
+ * 删除复数用户
+ * Created by tuzkimo on 2017-04-27.
  */
-public class DeleteUserServlet extends HttpServlet {
+public class DeleteUsersServlet extends HttpServlet {
 
-    private static final long serialVersionUID = -1130876067771340262L;
+    private static final long serialVersionUID = -246612071943059705L;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = new UserServiceImpl(new UserDaoImpl());
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        String[] idsStr = request.getParameterValues("id");
+        int[] ids = new int[idsStr.length];
+        for (int i = 0; i < idsStr.length; i++) {
+            int id = Integer.parseInt(idsStr[i]);
+            ids[i] = id;
+        }
 
         String pageNo = request.getParameter("pageNo");
 
-        if (userService.deleteUser(id)) {
-            System.out.println("Deleted user with id #" + id);
+        if (userService.deleteUsers(ids)) {
             response.sendRedirect("/index?pageNo=" + pageNo);
         }
-
     }
 
 }

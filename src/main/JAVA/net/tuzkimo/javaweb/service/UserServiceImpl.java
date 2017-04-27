@@ -44,4 +44,14 @@ public class UserServiceImpl implements UserService {
     public boolean deleteUser(int id) {
         return userDao.deleteUser(id);
     }
+
+    public boolean deleteUsers(int[] ids) {
+        for (int id : ids) {
+            if (!userDao.deleteUser(id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

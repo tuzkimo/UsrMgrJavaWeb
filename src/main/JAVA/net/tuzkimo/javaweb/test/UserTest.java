@@ -64,5 +64,9 @@ public class UserTest {
         boolean result = userService.deleteUser(16);
         System.out.println("Deleted user? " +result);
     }
-    
+
+    @Test
+    public void deleteUsersTest() throws Exception {
+        Assert.assertTrue(userService.deleteUsers(new int[]{19, 20}));
+    }
 }

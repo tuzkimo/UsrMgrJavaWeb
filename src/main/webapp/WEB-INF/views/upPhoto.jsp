@@ -21,23 +21,23 @@
             <legend>user</legend>
             <input type="hidden" name="id" value="${user.id}">
             <p>
-                <label for="name">Name: </label>${user.name}
+                <label>Name: </label>${user.name}
             </p>
             <p>
-                <label for="description">Description: </label>${user.description}
+                <label>Description: </label>${user.description}
             </p>
             <p>
                 <label for="photo">Photo: </label>
                 <input type="file" name="photo" id="photo"/>
             </p>
             <p>
-                <input type="submit" value="upload"/>
+                <input class="btn out" type="submit" value="upload"/>
             </p>
         </fieldset>
     </form>
     <p class="error">${message}</p>
     <p>
-        <a class="abtn" href="<c:url value="/index"/>">Return</a>
+        <a class="abtn out" href="<c:url value="/index"/>">Return</a>
     </p>
 </div>
 </body>

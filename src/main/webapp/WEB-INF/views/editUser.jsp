@@ -33,12 +33,12 @@
                 <textarea name="description" id="description">${user.description}</textarea>
             </p>
             <p>
-                <input type="submit" value="save">
+                <input class="btn out" type="submit" value="save">
             </p>
         </fieldset>
     </form>
     <p>
-        <a class="abtn" href="<c:url value="/index"/>">Return</a>
+        <a class="abtn out" href="<c:url value="/index"/>">Return</a>
     </p>
 </div>
 </body>

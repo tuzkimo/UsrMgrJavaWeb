@@ -27,6 +27,11 @@
   </servlet>
   
   <servlet>
+    <servlet-name>deleteUsersServlet</servlet-name>
+    <servlet-class>net.tuzkimo.javaweb.servlet.DeleteUsersServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
     <servlet-name>upPhotoServlet</servlet-name>
     <servlet-class>net.tuzkimo.javaweb.servlet.UpPhotoServlet</servlet-class>
   </servlet>
@@ -51,6 +56,11 @@
     <url-pattern>/delete</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>deleteUsersServlet</servlet-name>
+    <url-pattern>/deletes</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>upPhotoServlet</servlet-name>
     <url-pattern>/upPhoto</url-pattern>
