@@ -4,12 +4,16 @@ import net.tuzkimo.javaweb.dao.UserDaoImpl;
 import net.tuzkimo.javaweb.entity.User;
 import net.tuzkimo.javaweb.service.UserService;
 import net.tuzkimo.javaweb.service.UserServiceImpl;
+import net.tuzkimo.javaweb.util.FormValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 增加用户
@@ -32,15 +36,28 @@ public class AddUserServlet extends HttpServlet {
         String password = request.getParameter("password");
         String description = request.getParameter("description");
 
-        User user = new User(name, password, description);
+        Map<String, String> fieldValues = new HashMap<String, String>();
+        fieldValues.put("name", name);
+        fieldValues.put("password", password);
+        fieldValues.put("description", description);
 
-        if (userService.addUser(user)) {
-            System.out.println("Added user: " + user);
-            response.sendRedirect("/index");
-        } else {
-            System.out.println("Added user: failed");
+        Map<String, List<String>> fieldErrors = FormValidator.validate(fieldValues);
+
+        if (fieldErrors.size() > 0) {
+            request.setAttribute("fieldErrors", fieldErrors);
             request.getRequestDispatcher("/WEB-INF/views/addUser.jsp").forward(request, response);
+        } else {
+            User user = new User(name, password, description);
+
+            if (userService.addUser(user)) {
+                System.out.println("Added user: " + user);
+                response.sendRedirect("/index");
+            } else {
+                System.out.println("Added user: failed");
+                request.getRequestDispatcher("/WEB-INF/views/addUser.jsp").forward(request, response);
+            }
         }
+
 
     }
 

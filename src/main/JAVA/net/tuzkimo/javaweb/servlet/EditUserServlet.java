@@ -4,12 +4,16 @@ import net.tuzkimo.javaweb.dao.UserDaoImpl;
 import net.tuzkimo.javaweb.entity.User;
 import net.tuzkimo.javaweb.service.UserService;
 import net.tuzkimo.javaweb.service.UserServiceImpl;
+import net.tuzkimo.javaweb.util.FormValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 增加用户
@@ -32,20 +36,36 @@ public class EditUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = new UserServiceImpl(new UserDaoImpl());
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        String description = request.getParameter("description");
 
-        User user = userService.getUserById(id);
+        Map<String, String> fieldValues = new HashMap<String, String>();
+        fieldValues.put("name", name);
+        fieldValues.put("password", password);
+        fieldValues.put("description", description);
 
-        user.setName(request.getParameter("name"));
-        user.setPassword(request.getParameter("password"));
-        user.setDescription(request.getParameter("description"));
+        Map<String, List<String>> fieldErrors = FormValidator.validate(fieldValues);
 
-        if (userService.editUser(user)) {
-            System.out.println("Edited user: " + user);
-            response.sendRedirect("/index");
+        if (fieldErrors.size() > 0) {
+            request.setAttribute("fieldErrors", fieldErrors);
+            request.getRequestDispatcher("/WEB-INF/views/addUser.jsp").forward(request, response);
         } else {
-            System.out.println("Edited user: failed");
-            request.getRequestDispatcher("/WEB-INF/views/editUser.jsp").forward(request, response);
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            User user = userService.getUserById(id);
+
+            user.setName(request.getParameter("name"));
+            user.setPassword(request.getParameter("password"));
+            user.setDescription(request.getParameter("description"));
+
+            if (userService.editUser(user)) {
+                System.out.println("Edited user: " + user);
+                response.sendRedirect("/index");
+            } else {
+                System.out.println("Edited user: failed");
+                request.getRequestDispatcher("/WEB-INF/views/editUser.jsp").forward(request, response);
+            }
         }
 
     }

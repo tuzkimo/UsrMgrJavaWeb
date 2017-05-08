@@ -22,14 +22,29 @@
             <p>
                 <label for="name">Name: </label>
                 <input type="text" name="name" id="name" value="${user.name}"/>
+                <c:forEach items="${fieldErrors['name']}" var="errors">
+                    <c:forEach items="${errors}" var="error">
+                        <span class="error">${error}</span>
+                    </c:forEach>
+                </c:forEach>
             </p>
             <p>
                 <label for="password">Password: </label>
                 <input type="password" name="password" id="password"/>
+                <c:forEach items="${fieldErrors['password']}" var="errors">
+                    <c:forEach items="${errors}" var="error">
+                        <span class="error">${error}</span>
+                    </c:forEach>
+                </c:forEach>
             </p>
             <p>
                 <label for="description">Description: </label>
                 <textarea name="description" id="description">${user.description}</textarea>
+                <c:forEach items="${fieldErrors['description']}" var="errors">
+                    <c:forEach items="${errors}" var="error">
+                        <span class="error">${error}</span>
+                    </c:forEach>
+                </c:forEach>
             </p>
             <p>
                 <input class="btn out" type="submit" value="save">
@@ -39,6 +54,8 @@
     <p>
         <a class="abtn out" href="<c:url value="/index"/>">Return</a>
     </p>
+    <script src="<c:url value="/scripts/jquery-3.1.1.min.js"/>"></script>
+    <script src="<c:url value="/scripts/validator.js"/>"></script>
 </div>
 </body>
 </html>
