@@ -24,4 +24,6 @@ public interface UserDao {
 
     boolean deleteUser(int id);
 
+    User getUserByName(String name);
+
 }

@@ -45,7 +45,7 @@ public class EditUserServlet extends HttpServlet {
         fieldValues.put("password", password);
         fieldValues.put("description", description);
 
-        Map<String, List<String>> fieldErrors = FormValidator.validate(fieldValues);
+        Map<String, List<String>> fieldErrors = FormValidator.getInstance().validate(fieldValues);
 
         if (fieldErrors.size() > 0) {
             request.setAttribute("fieldErrors", fieldErrors);

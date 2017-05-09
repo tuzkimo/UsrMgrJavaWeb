@@ -1,5 +1,9 @@
 package net.tuzkimo.javaweb.util;
 
+import net.tuzkimo.javaweb.dao.UserDaoImpl;
+import net.tuzkimo.javaweb.service.UserService;
+import net.tuzkimo.javaweb.service.UserServiceImpl;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +16,21 @@ import java.util.regex.Pattern;
  */
 public class FormValidator {
 
-    public static Map<String, List<String>> validate(Map<String, String> fields) {
+    private static FormValidator formValidator;
+    private UserService userService;
+
+    private FormValidator() {
+        userService = new UserServiceImpl(new UserDaoImpl());
+    }
+
+    public static FormValidator getInstance() {
+        if (formValidator == null) {
+            formValidator = new FormValidator();
+        }
+        return formValidator;
+    }
+
+    public Map<String, List<String>> validate(Map<String, String> fields) {
         Map<String, List<String>> fieldErrors;
         fieldErrors = new HashMap<String, List<String>>();
 
@@ -27,6 +45,8 @@ public class FormValidator {
 
                 if (fieldValue == null || fieldValue.equals("")) {
                     errors.add("名称不能为空");
+                } else if (!Pattern.matches("^[\\w\\u4e00-\\u9fa5\\s]+$", fieldValue)) {
+                    errors.add("名称只能包含中英文字符");
                 } else {
                     fieldLength = fieldValue.length();
                 }
@@ -35,8 +55,8 @@ public class FormValidator {
                     errors.add("名称不能超过 25 个字符");
                 }
 
-                if (!Pattern.matches("^[\\w\\u4e00-\\u9fa5]+$", fieldValue)) {
-                    errors.add("名称只能包含中英文字符");
+                if (userService.getUserByName(fieldValue).getId() != 0) {
+                    errors.add("用户已存在");
                 }
 
                 fieldErrors.put(key, errors);
@@ -68,7 +88,7 @@ public class FormValidator {
                 List<String> errors = new ArrayList<String>();
                 String fieldValue = fields.get(key);
 
-                if (Pattern.matches("^[<>&#]*$", fieldValue)) {
+                if (Pattern.matches("^[<>&#]+$", fieldValue)) {
                     errors.add("描述不能包含 < > & # 等非法字符");
                 }
 
@@ -77,13 +97,6 @@ public class FormValidator {
         }
 
         return fieldErrors;
-    }
-
-    /*
-     * 测试
-     */
-    public static void main(String[] args) {
-        System.out.println(Pattern.matches("^[\\w\\u4e00-\\u9fa5]+$", "尼玛"));
     }
 
 }

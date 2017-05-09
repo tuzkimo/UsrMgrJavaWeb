@@ -69,4 +69,11 @@ public class UserTest {
     public void deleteUsersTest() throws Exception {
         Assert.assertTrue(userService.deleteUsers(new int[]{19, 20}));
     }
+
+    @Test
+    public void getUserByNameTest() throws Exception {
+        System.out.println(userService.getUserByName("Steve Curry*"));
+        Assert.assertTrue(userService.getUserByName("Steve Curry*") != null);
+    }
+
 }

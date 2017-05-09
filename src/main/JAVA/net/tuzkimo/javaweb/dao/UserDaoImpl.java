@@ -13,6 +13,20 @@ import java.util.List;
  */
 public class UserDaoImpl extends BaseDao implements UserDao {
 
+    private static final String COLUMNS = "id, name, password, description, photo";
+
+    private static User queryUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        while (resultSet.next()) {
+            user.setId(resultSet.getInt("id"));
+            user.setName(resultSet.getString("name"));
+            user.setPassword(resultSet.getString("password"));
+            user.setDescription(resultSet.getString("description"));
+            user.setPhoto(resultSet.getString("photo"));
+        }
+        return user;
+    }
+
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
         try {
@@ -77,18 +91,12 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     public User getUserById(int id) {
-        User user = new User();
+        User user = null;
         try {
             String sql = "SELECT * FROM user WHERE id = ?";
             Object[] params = {id};
             ResultSet resultSet = executeQuery(sql, params);
-            while (resultSet.next()) {
-                user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
-                user.setPassword(resultSet.getString("password"));
-                user.setDescription(resultSet.getString("description"));
-                user.setPhoto(resultSet.getString("photo"));
-            }
+            user = queryUser(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -142,4 +150,16 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         return result;
     }
 
+    public User getUserByName(String name) {
+        User user = null;
+        try {
+            String sql = "SELECT " + COLUMNS + " FROM user WHERE name = ?";
+            Object[] params = {name};
+            ResultSet resultSet = executeQuery(sql, params);
+            user = queryUser(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

@@ -35,6 +35,11 @@
     <servlet-name>upPhotoServlet</servlet-name>
     <servlet-class>net.tuzkimo.javaweb.servlet.UpPhotoServlet</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>checkNameServlet</servlet-name>
+    <servlet-class>net.tuzkimo.javaweb.servlet.CheckNameServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>listUsersServlet</servlet-name>
@@ -64,6 +69,11 @@
   <servlet-mapping>
     <servlet-name>upPhotoServlet</servlet-name>
     <url-pattern>/upPhoto</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>checkNameServlet</servlet-name>
+    <url-pattern>/checkName</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>
